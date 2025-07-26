@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather City Change</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f6f8ff;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding: 40px 20px;
+        margin: 0;
+      }
+
+      .container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        padding: 30px;
+        max-width: 500px;
+        width: 100%;
+      }
+
+      .search-form {
+        display: flex;
+        margin-bottom: 30px;
+      }
+
+      .search-form input {
+        flex: 1;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 6px 0 0 6px;
+        outline: none;
+      }
+
+      .search-form button {
+        padding: 12px 20px;
+        font-size: 16px;
+        border: none;
+        background-color: #7c3aed; /* Purple */
+        color: white;
+        border-radius: 0 6px 6px 0;
+        cursor: pointer;
+      }
+
+      .weather-display h1 {
+        font-size: 24px;
+        margin: 0 0 10px;
+      }
+
+      .weather-display p {
+        margin: 4px 0;
+        font-size: 14px;
+        color: #555;
+      }
+
+      .temperature-box {
+        position: absolute;
+        right: 700px;
+        top: 130px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 2rem;
+        font-weight: bold;
+      }
+
+      .temperature-box span#emoji {
+        font-size: 36px;
+      }
+
+      .footer {
+        margin-top: 30px;
+        font-size: 18px;
+      }
+
+      .footer a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form class="search-form" id="search-form">
+        <input type="text" id="city-input" placeholder="Enter a city..." />
+        <button type="submit">Search</button>
+      </form>
+      <div id="weather-container" class="weather-container"></div>
+      <div class="weather-display">
+        <h1 id="city-name">Paris</h1>
+        <p id="weather-description">Saturday 19:45, moderate rain</p>
+        <p id="details">
+          Humidity: <strong id="humidity">87%</strong>, Wind:
+          <strong id="wind">7.2 km/h</strong>
+        </p>
+        <div class="temperature-box">
+          <span id="emoji">☀️</span>
+          <span id="temperature">24°C</span>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <p>
+          This project was coded by
+          <a href="https://www.shecodes.io/" target="_blank"
+            >Nomfundiso Yolanda Mbange</a
+          >, and is on
+          <a href="https://github.com/" target="_blank">GitHub</a> and
+          <a href="https://vercel.com/" target="_blank">hosted on Vercel</a>.
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      const apiKey = "6cd42292d9e879aefe312fcd94a469a9";
+
+      document
+        .getElementById("search-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          searchCity();
+        });
+
+      function searchCity() {
+        const city = document.getElementById("city-input").value.trim();
+        if (!city) {
+          alert("Please enter a city name!");
+          return;
+        }
+
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+        fetch(apiUrl)
+          .then((response) => {
+            if (!response.ok) throw new Error("City not found");
+            return response.json();
+          })
+          .then((data) => {
+            // Update the existing elements
+            document.getElementById("city-name").textContent = data.name;
+
+            const date = new Date();
+            const hours = date.getHours().toString().padStart(2, "0");
+            const minutes = date.getMinutes().toString().padStart(2, "0");
+            const weatherDesc = data.weather[0].description;
+
+            document.getElementById(
+              "weather-description"
+            ).textContent = `Local time ${hours}:${minutes}, ${weatherDesc}`;
+            document.getElementById(
+              "humidity"
+            ).textContent = `${data.main.humidity}%`;
+            document.getElementById(
+              "wind"
+            ).textContent = `${data.wind.speed} km/h`;
+            document.getElementById("temperature").textContent = `${Math.round(
+              data.main.temp
+            )}°C`;
+
+            // Update weather emoji
+            const weatherMain = data.weather[0].main.toLowerCase();
+            let emoji = "❓";
+            if (weatherMain.includes("cloud")) emoji = "☁️";
+            else if (weatherMain.includes("rain")) emoji = "🌧️";
+            else if (weatherMain.includes("clear")) emoji = "☀️";
+            else if (weatherMain.includes("snow")) emoji = "❄️";
+            else if (weatherMain.includes("thunderstorm")) emoji = "🌩️";
+            else if (
+              weatherMain.includes("mist") ||
+              weatherMain.includes("fog")
+            )
+              emoji = "🌫️";
+
+            document.getElementById("emoji").textContent = emoji;
+          })
+          .catch((error) => {
+            alert("Error: " + error.message);
+          });
+      }
+    </script>
+  </body>
+</html>

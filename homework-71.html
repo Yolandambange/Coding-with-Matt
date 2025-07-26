@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Statement</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 350px;
+        margin: 30px auto;
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-bar {
+        display: flex;
+        margin-bottom: 15px;
+      }
+
+      .search-bar input {
+        flex: 1;
+        padding: 8px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 5px 0 0 5px;
+      }
+
+      .search-bar button {
+        padding: 8px 15px;
+        font-size: 1em;
+        border: 1px solid #007bff;
+        background-color: #007bff;
+        color: white;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 5px 0;
+      }
+
+      .weather-main {
+        display: flex;
+        align-items: center;
+        font-size: 1.5em;
+        margin: 10px 0;
+      }
+
+      .weather-main img {
+        margin-right: 10px;
+      }
+
+      footer {
+        margin-top: 20px;
+        font-size: 0.8em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="search-bar">
+      <input type="text" placeholder="Type a city..." />
+      <button onclick="checkWeather()">Search</button>
+    </div>
+
+    <h1>Sydney NSW, Australia</h1>
+    <h2>Wednesday 22:00</h2>
+    <h3>Partly Cloudy</h3>
+
+    <div class="weather-main">
+      <img
+        src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
+        alt="Partly Cloudy"
+      />
+      <span>19°C | °F</span>
+    </div>
+
+    <div style="text-align: right">
+      <p>
+        Precipitation: 0%;<br />
+        Humidity: 77%;<br />
+        Wind: 8km/h
+      </p>
+    </div>
+
+    <footer>
+      <div style="text-align: left">
+        This project was coded by
+        <a href="https://www.shecodes.io/" target="_blank">
+          Nomfundiso Yolanda Mbange</a
+        >, hosted on
+        <a href="https://www.vercel.com/" target="_blank">Vercel</a>, and on
+        <a href="https://www.github.com/" target="_blank">GitHub</a>.
+      </div>
+    </footer>
+
+    <script>
+      let weather = {
+        paris: { temp: 19.7, humidity: 80 },
+        tokyo: { temp: 17.3, humidity: 50 },
+        lisbon: { temp: 30.2, humidity: 20 },
+        "san francisco": { temp: 20.9, humidity: 100 },
+        moscow: { temp: -5, humidity: 20 },
+      };
+
+      function checkWeather() {
+        let cityInput = document.querySelector("input").value.toLowerCase();
+        if (weather[cityInput]) {
+          let data = weather[cityInput];
+          alert(
+            `It is currently ${data.temp}°C (${toFahrenheit(
+              data.temp
+            )}°F) in ${cityInput}, with a humidity of ${data.humidity}%.`
+          );
+        } else {
+          alert("Sorry, we don't have weather data for that city.");
+        }
+      }
+
+      function toFahrenheit(celsius) {
+        return Math.round((celsius * 9) / 5 + 32);
+      }
+    </script>
+  </body>
+</html>

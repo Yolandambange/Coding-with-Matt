@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Features</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #e0f7fa;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      #date-time {
+        text-align: left;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: #555;
+      }
+      .search-form {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      .search-form input {
+        padding: 10px;
+        font-size: 16px;
+        flex: 1;
+        border: 1px solid #ccc;
+        border-radius: 5px 0 0 5px;
+      }
+      .search-form button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        background: #00796b;
+        color: white;
+        border-radius: 0 6px 6px 0;
+        cursor: pointer;
+      }
+      .temperature-box {
+        position: absolute;
+        right: 700px;
+        top: 130px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 2rem;
+        font-weight: bold;
+      }
+      .footer {
+        margin-top: 40px;
+        text-align: left;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+     <div class="container">
+      <p id="date-time"></p>
+    <form class="search-form" id="search-form">
+  <input type="text" id="city-input" placeholder="Enter a city..." />
+  <button type="submit">Search</button>
+</form>
+<div class="weather-display">
+    <h1 id="city-name">Paris</h1>
+    <p class="weather-description">
+      <span id="weather-time"></span> – Moderate rain
+    </p>
+    <p id="details">
+      Humidity: <strong>87%</strong>, Wind: <strong>7.2km/h</strong>
+    </p>
+    <div class="temperature-box">
+      <span id="emoji">☀️</span>
+      <span id="temperature">24°C</span>
+      </div>
+      <footer class="footer">
+        <p>
+          This project was coded by
+          <a href="https://www.shecodes.io/" target="_blank"
+            >Nomfundiso Yolanda Mbange</a
+          >, hosted on
+          <a href="https://www.vercel.com/" target="_blank">Vercel</a>, and on
+          <a href="https://www.github.com/" target="_blank">GitHub</a>.
+        </p>
+      </footer>
+    </div>
+    <script>
+    function updateCity(cityName) {
+    currentCity = cityName; // Update the city name
+    let formattedTime = formatDateTime(new Date()); // Format date/time right after
+   console.log(`City: ${currentCity}, Time: ${formattedTime}`);
+   }
+ function formatDateTime() {
+  const now = new Date();
+  const day = now.toLocaleDateString("en-US", { weekday: "long" });
+  const time = now.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+  return `${day} ${time}`;
+}
+
+// Set time on load
+document.getElementById("weather-time").textContent = formatDateTime();
+
+// Update every minute
+setInterval(() => {
+  document.getElementById("weather-time").textContent = formatDateTime();
+}, 60000);
+
+// Update time + city on search
+document
+  .getElementById("search-form")
+  .addEventListener("submit", function (e) {
+    e.preventDefault();
+    const city = document.getElementById("city-input").value.trim();
+    if (city) {
+      document.getElementById("city-name").textContent = city;
+      document.getElementById("weather-time").textContent = formatDateTime();
+    }
+  });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Change City Temperature</title>
+    <style>
+      h1 {
+        text-align: center;
+      }
+      h2 {
+        text-align: center;
+        color: blue;
+      }
+      h3 {
+        text-align: center;
+      }
+      ul {
+        text-align: center;
+        list-style: none;
+      }
+      ul :hover {
+        background-color: rgb(228, 228, 151);
+        margin-left: 50rem;
+        margin-right: 50rem;
+      }
+      button {
+        display: block;
+        margin: 20px auto;
+        border: 1px solid #1a64d6;
+        background: blue;
+        color: white;
+        font-size: 16px;
+        line-height: 22px;
+        padding: 16px 24px;
+        border-radius: 30px;
+        transition: all 200ms ease;
+        box-shadow: rgb(37, 39, 89, 0.08);
+        cursor: pointer;
+      }  footer {
+        text-align: center;
+        margin: 10px 0;
+        font-size: 30px;
+        color: black;
+      }
+      button:hover {
+        background: white;
+        color: #1a64d6;
+      }
+      p {
+        text-align: center;
+      }
+      .day {
+        padding: 20px;
+      }
+      .month {
+        padding: 20px;
+        border-color: rgb(21, 151, 129);
+      }
+      .year {
+        padding: 20px;
+        border-color: rgb(139, 123, 98);
+      }
+      button {
+        background: rgb(52, 52, 134);
+        color: rgb(186, 211, 198);
+        font-size: 20px;
+      }
+      p {
+        color: rgb(190, 34, 107);
+        font-size: 25px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>😥</h1>
+    <h2>Currectly -10℃ in Namibia</h2>
+    <h3>13°/23°</h3>
+    <ul>
+      <li class="day">
+        🌧 Tomorrow
+        <br />
+        10°/23°
+      </li>
+      <li class="month">
+        ☁ Saturday
+        <br />
+        15°/ 17°
+      </li>
+      <li class="year">
+        ☀ Sunday
+        <br />
+        25°/28°
+      </li>
+    </ul>
+    <button>Change city</button>
+     </div>
+    <footer>
+      This project is coded by
+      <a href="https://www.shecodes.io/" target="_blank">Yolanda Mbange </a>
+    </footer>
+    <script>
+      function changeCityTemperature() {
+        const h1 = document.querySelector("h1");
+        h1.classList.add("moving"); // Start the animation
+        const city = prompt("What city do you live in?");
+        if (!city) {
+          alert("City input was cancelled or empty.");
+          h1.classList.remove("moving"); // Stop the animation
+          return;
+        }
+        const temperature = prompt("What temperature is it?");
+        if (!temperature) {
+          alert("Temperature input was cancelled or empty.");
+          h1.classList.remove("moving"); // Stop the animation
+          return;
+        }
+        alert(
+          `Thank you! We received your input for ${city} with ${temperature}`
+        );
+        h1.classList.remove("moving"); //Stop the animation after input is done
+      }
+      const contactButton = document.querySelector("button");
+      contactButton.addEventListener("click", changeCityTemperature);
+    </script>
+  </body>
+</html>

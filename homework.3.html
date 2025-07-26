@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Change Countries</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+
+      .search-box {
+        margin: 20px;
+      }
+
+      .search-box button {
+        padding: 8px 12px;
+      }
+
+      .weather-box {
+        display: inline-block;
+        text-align: left;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        width: 300px;
+      }
+
+      .weather-header {
+        margin-bottom: 10px;
+      }
+
+      .weather-main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .left img {
+        width: 48px;
+        height: 48px;
+      }
+
+      .temperature {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .right {
+        text-align: right;
+        font-size: 14px;
+      }
+
+      footer {
+        margin-top: 20px;
+        font-size: 0.9em;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="search-box">
+      <input type="text" id="cityInput" placeholder="Type a city..." />
+      <button onclick="checkWeather()">Search</button>
+    </div>
+
+    <div class="weather-box" id="weatherDisplay">
+      <div class="weather-header">
+        <h2 id="cityName">Sydney NSW, Australia</h2>
+        <p id="weatherTime">Wednesday 22:00</p>
+        <p id="weatherCondition">Partly Cloudy</p>
+      </div>
+
+      <div class="weather-main">
+        <div class="left">
+          <img
+            src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
+            alt="Weather icon"
+          />
+          <div class="temperature"><span id="temperature">19</span>°C | °F</div>
+        </div>
+        <div class="right">
+          <p>Precipitation: <span id="precipitation">0%</span></p>
+          <p>Humidity: <span id="humidity">77%</span></p>
+          <p>Wind: <span id="wind">8 km/h</span></p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      This project was coded by
+      <a href="https://www.shecodes.io/" target="_blank"
+        >Nomfundiso Yolanda Mbange</a
+      >
+      and is on <a href="https://www.GitHub.io/" target="_blank">GitHub</a> and
+      hosted on <a href="https://www.Vercel.io/" target="_blank">Vercel</a>
+    </footer>
+
+    <script>
+      const weatherData = {
+        Namibia: {
+          city: "Windhoek, Namibia",
+          time: "Wednesday 22:00",
+          condition: "Partly Cloudy",
+          temperature: 19,
+          precipitation: "0%",
+          humidity: "77%",
+          wind: "8 km/h",
+        },
+        Windhoek: {
+          city: "Windhoek, Namibia",
+          time: "Wednesday 22:00",
+          condition: "Clear",
+          temperature: 24,
+          precipitation: "0%",
+          humidity: "30%",
+          wind: "15 km/h",
+        },
+        London: {
+          city: "London, UK",
+          time: "Wednesday 13:00",
+          condition: "Cloudy",
+          temperature: 25,
+          precipitation: "10%",
+          humidity: "60%",
+          wind: "12 km/h",
+        },
+        NewYork: {
+          city: "New York, USA",
+          time: "Wednesday 08:00",
+          condition: "Sunny",
+          temperature: 28,
+          precipitation: "0%",
+          humidity: "70%",
+          wind: "9 km/h",
+        },
+      };
+
+      function checkWeather() {
+        const input = document.getElementById("cityInput").value.trim();
+        const cityKey = input.replace(/\s+/g, "");
+
+        const data = weatherData[cityKey];
+        if (data) {
+          document.getElementById("cityName").textContent = data.city;
+          document.getElementById("weatherTime").textContent = data.time;
+          document.getElementById("weatherCondition").textContent =
+            data.condition;
+          document.getElementById("temperature").textContent = data.temperature;
+          document.getElementById("precipitation").textContent =
+            data.precipitation;
+          document.getElementById("humidity").textContent = data.humidity;
+          document.getElementById("wind").textContent = data.wind;
+        } else {
+          alert(
+            `Sorry, we don't know the weather for "${input}". Try searching on Google: https://www.google.com/search?q=weather+${input}`
+          );
+        }
+      }
+    </script>
+  </body>
+</html>

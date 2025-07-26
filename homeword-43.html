@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Change City Temperature</title>
+    <style>
+      h1 {
+        text-align: center;
+        font-size: 50px;
+      }
+
+      h2 {
+        text-align: center;
+        color: blue;
+      }
+
+      h3 {
+        text-align: center;
+      }
+
+      ul {
+        text-align: center;
+        list-style: none;
+        padding: 0;
+      }
+
+      ul li:hover {
+        background-color: rgb(228, 228, 151);
+        margin-left: 50rem;
+        margin-right: 50rem;
+      }
+
+      button {
+        display: block;
+        margin: 20px auto;
+        border: 1px solid #1a64d6;
+        background: rgb(52, 52, 134);
+        color: rgb(186, 211, 198);
+        font-size: 20px;
+        line-height: 22px;
+        padding: 16px 24px;
+        border-radius: 30px;
+        transition: all 200ms ease;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: white;
+        color: #1a64d6;
+      }
+      footer {
+        text-align: center;
+        margin: 20px 0;
+        font-size: 20px;
+        color: black;
+      }
+
+      p {
+        text-align: center;
+        color: rgb(190, 34, 107);
+        font-size: 25px;
+      }
+
+      .day,
+      .month,
+      .year {
+        padding: 20px;
+      }
+
+      .month {
+        border-color: rgb(21, 151, 129);
+      }
+
+      .year {
+        border-color: rgb(139, 123, 98);
+      }
+
+      h1.moving {
+        animation: moveEmoji 1s infinite;
+      }
+
+      #temperatureInput {
+        display: block;
+        margin: 20px auto;
+        padding: 10px;
+        font-size: 18px;
+        text-align: center;
+        width: 200px;
+      }
+
+      #weatherEmoji {
+        text-align: center;
+        font-size: 100px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1 id="weatherEmoji">😥</h1>
+    <h2 id="weatherInfo">Currently -10℃ in Namibia</h2>
+    <h3>13°/23°</h3>
+
+    <ul>
+      <li class="day">🌧 Tomorrow<br />10°/23°</li>
+      <li class="month">☁ Saturday<br />15°/17°</li>
+      <li class="year">☀ Sunday<br />25°/28°</li>
+    </ul>
+
+    <input
+      type="number"
+      id="temperatureInput"
+      placeholder="Enter temperature °C"
+    />
+    <button id="changeCityBtn">Change city</button>
+
+    <footer>
+      This project is coded by
+      <a href="https://www.shecodes.io/" target="_blank">Yolanda Mbange</a>
+    </footer>
+    <script>
+      const weatherEmoji = document.getElementById("weatherEmoji");
+      const temperatureInput = document.getElementById("temperatureInput");
+      const weatherInfo = document.getElementById("weatherInfo");
+      const changeCityBtn = document.getElementById("changeCityBtn");
+
+      // Update emoji when user types in the temperature field
+      temperatureInput.addEventListener("input", () => {
+        const temp = parseFloat(temperatureInput.value);
+
+        if (isNaN(temp)) {
+          weatherEmoji.textContent = "🤔";
+        } else if (temp < 10) {
+          weatherEmoji.textContent = "😢"; // Cold
+        } else {
+          weatherEmoji.textContent = "🙂"; // Warm
+        }
+      });
+
+      // When user clicks "Change city"
+      changeCityBtn.addEventListener("click", () => {
+        const city = prompt("What city do you live in?");
+        if (!city) return;
+
+        const temp = prompt("What temperature is it?");
+        if (!temp || isNaN(temp)) return;
+
+        weatherInfo.textContent = `Currently ${temp}℃ in ${city}`;
+        temperatureInput.value = temp;
+
+        if (temp < 10) {
+          weatherEmoji.textContent = "😢";
+        } else {
+          weatherEmoji.textContent = "🙂";
+        }
+      });
+    </script>
+  </body>
+</html>
